@@ -11,8 +11,6 @@ def test_smoke():
         num_rows=200,
     )
 
-    print("="*80)
-
     assert result.keys() == set(["variables", "sample_data"])
 
     # assert len(result["variables"]) == 3
@@ -27,10 +25,7 @@ def test_smoke():
         # print(variable)
 
     D = result["sample_data"]
-    print( D )
     # assert D.shape == (3, 50)
     # print("*"*80)
-    print( corrcoef(D) )
-    print( corrcoef(x=D[0,:], y=D[1,:])[0,1] )
-
-    assert False
+    # print( corrcoef(D) )
+    # print( corrcoef(x=D[0,:], y=D[1,:])[0,1] )

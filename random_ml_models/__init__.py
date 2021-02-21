@@ -125,13 +125,10 @@ def generate_random_ml_model(
         )
         variables.append(new_variable)
 
-        print("a"*80)
-        # print(sample_data)
         sample_data[i,:] = generate_sample_data(
             sample_data,
             **new_variable
         )
-        print(sample_data)
 
     return {
         "variables" : variables,
