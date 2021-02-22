@@ -6,15 +6,14 @@ from .link_functions import *
 from .noise_distributions import NOISE_DISTRIBUTIONS
 
 VARIABLE_TYPES = [
-    # "INT",
+    "INT",
     "FLOAT",
-    # "BINARY",
+    "BINARY",
     # "CATEGORICAL",
 ]
 
 def generate_random_variable(
     previous_variables : List,
-    # previous_sample_data: np.ndarray,
     num_variables : int,
     num_rows: int,
 ):
@@ -59,6 +58,18 @@ def generate_sample_data(
         noise=noise,
         **link_function_params
     )
+
+    if np.isnan(new_sample_data).any():
+        print("="*80)
+        print(variable_type)
+        print(link_function)
+        print(link_function_params)
+        print(noise_distribution)
+        print(noise_distribution_params)
+        print(new_sample_data)
+        print("-"*80)
+        assert False
+
     # print(new_sample_data)
 
     return new_sample_data
