@@ -28,10 +28,12 @@ def test_smoke():
         ])
         print(variable)
 
+    # assert False
+    
     D = result["sample_data"]
-    assert D.shape == (5, 200)
+    assert D.shape == (200, 5)
 
-    df = pd.DataFrame(D.T)
+    df = pd.DataFrame(D)
     print(df.head(10))
 
 

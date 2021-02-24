@@ -9,7 +9,7 @@ VARIABLE_TYPES = [
     "INT",
     "FLOAT",
     "BINARY",
-    # "CATEGORICAL",
+    "CATEGORICAL",
 ]
 
 def generate_random_variable(
@@ -98,5 +98,5 @@ def generate_random_ml_model(
 
     return {
         "variables" : variables,
-        "sample_data" : sample_data
+        "sample_data" : sample_data.T
     }
