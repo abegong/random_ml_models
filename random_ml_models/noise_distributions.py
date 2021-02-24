@@ -29,15 +29,15 @@ def generate_uniform_float_params(size):
         "size": size
     }
 
-def generate_beta_float_params(size):
-    a = 1/random.random()
-    b = 1/random.random()
+# def generate_beta_float_params(size):
+#     a = 1/random.random()
+#     b = 1/random.random()
 
-    return {
-        "a": a,
-        "b": b,
-        "size": size
-    }
+#     return {
+#         "a": a,
+#         "b": b,
+#         "size": size
+#     }
 
 def generate_normal_int_params(size):
     loc = random.choice([
@@ -69,7 +69,7 @@ def generate_uniform_int_params(size):
 
 def generate_normal_binary_params(size):
     loc = random.choice([
-        random.uniform(-2, 2)
+        random.uniform(-1.5, 1.5)
     ])
 
     return {

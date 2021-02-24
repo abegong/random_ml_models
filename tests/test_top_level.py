@@ -29,7 +29,7 @@ def test_smoke():
         print(variable)
 
     # assert False
-    
+
     D = result["sample_data"]
     assert D.shape == (200, 5)
 
