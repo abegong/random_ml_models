@@ -3,6 +3,7 @@ import pandas as pd
 from numpy import (
     corrcoef,
     var,
+    random,
 )
 
 from random_ml_models import (
@@ -45,4 +46,16 @@ def test_smoke():
     # print( corrcoef(x=D[0,:], y=D[1,:])[0,1] )
 
 def test_split_data_and_train_model():
-    pass
+    data = pd.DataFrame({
+        "x1": random.uniform(size=100),
+        "x2": random.uniform(size=100),
+        "y": random.uniform(size=100),
+    }).to_numpy()
+    result = split_data_and_train_model(data=data)
+    assert set(result.keys()) == set([
+        'X_test',
+        'Y_test',
+        'X_train',
+        'Y_train',
+        'model',
+    ])
