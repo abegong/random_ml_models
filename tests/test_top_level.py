@@ -6,7 +6,8 @@ from numpy import (
 )
 
 from random_ml_models import (
-    generate_random_ml_model
+    generate_random_ml_model,
+    split_data_and_train_model,
 )
 
 def test_smoke():
@@ -42,3 +43,6 @@ def test_smoke():
     print("-"*80)
     print( corrcoef(D)[-1,:] )
     # print( corrcoef(x=D[0,:], y=D[1,:])[0,1] )
+
+def test_split_data_and_train_model():
+    pass

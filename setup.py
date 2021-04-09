@@ -5,7 +5,7 @@ setup(
     version = "0.0.4",
     author = "Abe Gong",
     author_email = "abegong@gmail.com",
-    description = "Generate random ML models",
+    description = "Generate data for random ML models with multiple variables and interesting correlation matrices",
     license = "Apache 2.0",
     keywords = "",
     url = "",
