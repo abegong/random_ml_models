@@ -9,6 +9,7 @@ from numpy import (
 from random_ml_models import (
     generate_random_ml_model,
     split_data_and_train_model,
+    LogitModelMonitoringProfiler,
 )
 
 def test_smoke():
@@ -59,3 +60,19 @@ def test_split_data_and_train_model():
         'Y_train',
         'model',
     ])
+
+def test_():
+    data_for_model = generate_random_ml_model(
+        num_variables=5,
+        num_rows=200,
+    )["sample_data"]
+
+    trained_model_and_data = split_data_and_train_model(
+        data=data_for_model
+    )
+
+    my_profiler = LogitModelMonitoringProfiler()
+    expectations, validation_results = my_profiler.profile(
+        # TODO: append yhat_train to this array
+        trained_model_and_data["X_train"]
+    )

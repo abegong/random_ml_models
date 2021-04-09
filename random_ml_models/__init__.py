@@ -9,3 +9,6 @@ from .core import (
 from .split_data_and_train_model import (
     split_data_and_train_model
 )
+from .profilers import (
+    LogitModelMonitoringProfiler,
+)
