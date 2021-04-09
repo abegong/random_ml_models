@@ -56,8 +56,10 @@ def test_split_data_and_train_model():
     assert set(result.keys()) == set([
         'X_test',
         'Y_test',
+        'Y_hat_test',
         'X_train',
         'Y_train',
+        'Y_hat_train',
         'model',
     ])
 

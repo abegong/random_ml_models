@@ -21,10 +21,16 @@ def split_data_and_train_model(
     # Train model
     model.fit(X_train, y_train)
 
+    # Generate predicted values
+    y_hat_train = model.predict(X_train)
+    y_hat_test = model.predict(X_test)
+
     return {
         "X_train": X_train,
         "Y_train": y_train,
+        "Y_hat_train": y_hat_train,
         "X_test": X_test,
         "Y_test": y_test,
+        "Y_hat_test": y_hat_test,
         "model": model,
     }
