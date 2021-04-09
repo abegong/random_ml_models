@@ -4,6 +4,8 @@ from numpy import (
     corrcoef,
     var,
     random,
+    hstack,
+    reshape,
 )
 
 from random_ml_models import (
@@ -73,8 +75,15 @@ def test_():
         data=data_for_model
     )
 
+    data = hstack([
+        trained_model_and_data["X_train"].copy(),
+        reshape(
+            trained_model_and_data["Y_hat_train"].copy(),
+            (-1, 1)
+        ),
+    ])
+
     my_profiler = LogitModelMonitoringProfiler()
     expectations, validation_results = my_profiler.profile(
-        # TODO: append yhat_train to this array
-        trained_model_and_data["X_train"]
+        data = data
     )
