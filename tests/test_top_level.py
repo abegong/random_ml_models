@@ -84,6 +84,8 @@ def test_():
     ])
 
     my_profiler = LogitModelMonitoringProfiler()
-    expectations, validation_results = my_profiler.profile(
+    expectation_suite, validation_results = my_profiler.profile(
         data = data
     )
+
+    print(expectation_suite)

@@ -9,17 +9,26 @@ class LogitModelMonitoringProfiler():
     def profile(cls, data):
         df = ge.from_pandas(data)
         
-        evr = df.expect_table_columns_to_match_ordered_list([])
-        columns = evr["result"]["observed_value"]
+        columns = df.get_table_columns()
+        df.expect_table_columns_to_match_ordered_list(columns)
+
+        df.set_default_expectation_argument("catch_exceptions", False)
+        df.set_config_value("interactive_evaluation", True)
 
         cardinalities = {}
 
         #for each column
         for column in columns:
-            # TODO: base this on an actual Expectation
-            cardinalities[column] = "numeric"
 
-            # expect_column_values_to_not_be_null
+            evr = df.expect_column_unique_value_count_to_be_between(column)
+            unique_values = evr["result"]["observed_value"]
+            if unique_values < 10:
+                cardinalities[column] = "categorical"
+            else:
+                cardinalities[column] = "numeric"
+            df.expect_column_unique_value_count_to_be_between(column, unique_values*.8, unique_values*1.2)
+
+            df.expect_column_values_to_not_be_null(column)
             # expect_column_values_to_be_of_type
             # expect_column_kl_divergence_to_be_less_than
 
@@ -63,5 +72,8 @@ class LogitModelMonitoringProfiler():
                     # expect_column_pair_cramers_phi_value_to_be_less_than
                     pass
 
-        # TODO: return an actual ExpectationSuite and ValidationResults
-        return None, None
+
+        expectation_suite = df.get_expectation_suite()
+        validation_results = df.validate(expectation_suite)
+        
+        return expectation_suite, validation_results
