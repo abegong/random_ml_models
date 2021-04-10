@@ -8,7 +8,9 @@ class LogitModelMonitoringProfiler():
 
     def profile(cls, data):
         df = ge.from_pandas(data)
+        df.columns = [str(column) for column in df.columns]
         
+        # Add expect_table_columns_to_match_ordered_list
         columns = df.get_table_columns()
         df.expect_table_columns_to_match_ordered_list(columns)
 
@@ -20,6 +22,7 @@ class LogitModelMonitoringProfiler():
         #for each column
         for column in columns:
 
+            # Add expect_column_unique_value_count_to_be_between
             evr = df.expect_column_unique_value_count_to_be_between(column)
             unique_values = evr["result"]["observed_value"]
             if unique_values < 10:
@@ -28,9 +31,31 @@ class LogitModelMonitoringProfiler():
                 cardinalities[column] = "numeric"
             df.expect_column_unique_value_count_to_be_between(column, unique_values*.8, unique_values*1.2)
 
+            # Add expect_column_values_to_not_be_null
             df.expect_column_values_to_not_be_null(column)
-            # expect_column_values_to_be_of_type
+
             # expect_column_kl_divergence_to_be_less_than
+            # evr = df.expect_column_kl_divergence_to_be_less_than(column)
+            # print(evr)
+
+            # Add expect_column_quantile_values_to_be_between
+            evr = df.expect_column_quantile_values_to_be_between(
+                column,
+                quantile_ranges={
+                    "quantiles": [0.05, 0.25, 0.5, 0.75, 0.95],
+                    "value_ranges": [[0,1], [0,1], [0,1], [0,1], [0,1]]
+                }
+            )
+            result_values = evr["result"]["observed_value"]["values"]
+            df.expect_column_quantile_values_to_be_between(
+                column,
+                quantile_ranges={
+                    "quantiles": [0.05, 0.25, 0.5, 0.75, 0.95],
+                    "value_ranges": [ [value-1, value+1] for value in result_values]
+                }
+            )
+            
+            # expect_column_values_to_be_of_type
 
             if cardinalities[column] == "categorical":
                 # expect_column_values_to_be_in_set

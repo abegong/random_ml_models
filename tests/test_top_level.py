@@ -1,5 +1,7 @@
 import random
 import pandas as pd
+from great_expectations.render.renderer import ExpectationSuitePageRenderer
+from great_expectations.render.view import DefaultJinjaPageView
 from numpy import (
     corrcoef,
     var,
@@ -13,6 +15,7 @@ from random_ml_models import (
     split_data_and_train_model,
     LogitModelMonitoringProfiler,
 )
+
 
 def test_smoke():
     result = generate_random_ml_model(
@@ -82,10 +85,23 @@ def test_():
             (-1, 1)
         ),
     ])
+    print(type(data))
 
     my_profiler = LogitModelMonitoringProfiler()
     expectation_suite, validation_results = my_profiler.profile(
         data = data
     )
 
-    print(expectation_suite)
+    # print(expectation_suite)
+
+    document = (
+        ExpectationSuitePageRenderer()
+        .render(expectation_suite)
+        # .to_json_dict()
+    )
+    view = DefaultJinjaPageView().render(document)
+
+    with open('temp.html', 'w') as f_:
+        f_.write(view)
+
+    assert False
