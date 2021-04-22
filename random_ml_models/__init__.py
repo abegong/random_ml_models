@@ -6,3 +6,9 @@ from .core import (
     generate_sample_data,
     generate_random_ml_model,
 )
+from .split_data_and_train_model import (
+    split_data_and_train_model
+)
+from .profilers import (
+    LogitModelMonitoringProfiler,
+)
