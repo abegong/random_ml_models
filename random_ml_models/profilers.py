@@ -29,6 +29,7 @@ class LogitModelMonitoringProfiler():
                 cardinalities[column] = "categorical"
             else:
                 cardinalities[column] = "numeric"
+            # TODO: This method of choosing min and max values isn't very smart.
             df.expect_column_unique_value_count_to_be_between(column, unique_values*.8, unique_values*1.2)
 
             # Add expect_column_values_to_not_be_null
@@ -51,6 +52,7 @@ class LogitModelMonitoringProfiler():
                 column,
                 quantile_ranges={
                     "quantiles": [0.05, 0.25, 0.5, 0.75, 0.95],
+                    # TODO: This method of choosing min and max values isn't very smart.
                     "value_ranges": [ [value-1, value+1] for value in result_values]
                 }
             )
