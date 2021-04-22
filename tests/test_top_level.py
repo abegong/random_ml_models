@@ -103,5 +103,3 @@ def test_():
 
     with open('temp.html', 'w') as f_:
         f_.write(view)
-
-    assert False
